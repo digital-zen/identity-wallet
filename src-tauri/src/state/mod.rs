@@ -50,6 +50,7 @@ pub struct AppState {
     #[ts(type = "object | null")]
     pub user_journey: Mutex<Option<serde_json::Value>>,
     pub connections: Mutex<Vec<Connection>>,
+    pub user_data_query: Mutex<Vec<String>>,
 }
 
 #[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq, Default)]
@@ -84,6 +85,32 @@ pub struct Connection {
     pub first_connected: String,
     pub last_connected: String,
 }
+
+#[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq)]
+#[ts(export)]
+pub enum QueryTarget {
+    Credentials,
+    Connections
+}
+
+#[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq)]
+#[ts(export)]
+pub enum SortMethod {
+    NameAZ { reverse: bool},
+    IssuanceNewOld { reverse: bool},
+    AddedNewOld { reverse: bool},
+    FirstConnectedNewOld { reverse: bool},
+    LastConnectedNewOld { reverse: bool},
+}
+
+#[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq)]
+#[ts(export)]
+pub struct UserDataQuery {
+    pub target: QueryTarget,
+    pub search_term: Option<String>,
+    pub sort_method: Option<SortMethod>,
+}
+
 
 #[cfg(test)]
 mod tests {

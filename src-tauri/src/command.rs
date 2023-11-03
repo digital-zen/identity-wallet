@@ -6,6 +6,7 @@ use crate::state::reducers::authorization::{
 use crate::state::reducers::credential_offer::{read_credential_offer, send_credential_request};
 use crate::state::reducers::load_dev_profile::load_dev_profile;
 use crate::state::reducers::storage::unlock_storage;
+use crate::state::reducers::user_data_query::user_data_query;
 use crate::state::reducers::{
     create_identity, initialize_stronghold, reset_state, set_locale, update_credential_metadata,
     update_profile_settings,
@@ -186,6 +187,14 @@ pub(crate) async fn handle_action_inner<R: tauri::Runtime>(
         ActionType::CancelUserJourney => {
             *app_state.user_journey.lock().unwrap() = None;
             save_state(app_state).await.ok();
+        }
+        ActionType::UserDataQuery => {
+            if user_data_query(app_state, Action { r#type, payload })
+                .await
+                .is_ok()
+            {
+                save_state(app_state).await.ok();
+            }
         }
         ActionType::Unknown => {
             warn!(
