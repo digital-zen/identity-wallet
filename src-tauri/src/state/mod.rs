@@ -90,17 +90,17 @@ pub struct Connection {
 #[ts(export)]
 pub enum QueryTarget {
     Credentials,
-    Connections
+    Connections,
 }
 
 #[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq)]
 #[ts(export)]
 pub enum SortMethod {
-    NameAZ { reverse: bool},
-    IssuanceNewOld { reverse: bool},
-    AddedNewOld { reverse: bool},
-    FirstConnectedNewOld { reverse: bool},
-    LastConnectedNewOld { reverse: bool},
+    NameAZ,
+    IssuanceNewOld,
+    AddedNewOld,
+    FirstConnectedNewOld,
+    LastConnectedNewOld,
 }
 
 #[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq)]
@@ -109,6 +109,7 @@ pub struct UserDataQuery {
     pub target: QueryTarget,
     pub search_term: Option<String>,
     pub sort_method: Option<SortMethod>,
+    pub sort_reverse: Option<bool>,
 }
 
 
