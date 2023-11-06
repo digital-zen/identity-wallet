@@ -50,7 +50,7 @@ pub struct AppState {
     #[ts(type = "object | null")]
     pub user_journey: Mutex<Option<serde_json::Value>>,
     pub connections: Mutex<Vec<Connection>>,
-    pub user_data_query: Mutex<Vec<String>>,
+    pub user_data_query: Mutex<Option<Vec<String>>>,
 }
 
 #[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq, Default)]
