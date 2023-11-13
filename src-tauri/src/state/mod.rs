@@ -43,6 +43,9 @@ pub struct AppState {
     #[serde(skip)]
     #[derivative(Debug = "ignore")]
     pub active_connection_request: Mutex<Option<ConnectionRequest>>,
+
+// Should differentiate between "main" locale and "profile" locale. 
+// There should be two because before creating a profile the user should be able to choose a language already.
     pub locale: Mutex<Locale>,
     pub credentials: Mutex<Vec<DisplayCredential>>,
     pub current_user_prompt: Mutex<Option<CurrentUserPrompt>>,
@@ -63,6 +66,14 @@ pub enum Locale {
     Nl,
 }
 
+#[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq, Default)]
+#[ts(export)]
+pub struct Preferences {
+    pub locale: Locale,
+    pub credential_sort: SortMethod,
+    pub connection_sort: SortMethod
+}
+
 /// A profile of the current user.
 #[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq, Default)]
 #[ts(export)]
@@ -72,6 +83,7 @@ pub struct Profile {
     pub picture: Option<String>,
     pub theme: Option<String>,
     pub primary_did: String,
+    pub preferences: Preferences
 }
 
 #[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq, Default)]
@@ -93,9 +105,10 @@ pub enum QueryTarget {
     Connections,
 }
 
-#[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq)]
+#[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq, Default)]
 #[ts(export)]
 pub enum SortMethod {
+    #[default]
     NameAZ,
     IssuanceNewOld,
     AddedNewOld,
@@ -128,8 +141,8 @@ mod tests {
                 picture: None,
                 theme: None,
                 primary_did: "did:example:123".to_string(),
+                preferences: Preferences::default()
             })),
-            locale: Mutex::new(Locale::En),
             credentials: Mutex::new(vec![]),
             current_user_prompt: Mutex::new(Some(CurrentUserPrompt::Redirect {
                 target: "me".to_string(),

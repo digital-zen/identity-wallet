@@ -1,7 +1,7 @@
 use crate::crypto::stronghold::StrongholdManager;
 use crate::state::actions::Action;
 use crate::state::user_prompt::CurrentUserPrompt;
-use crate::state::{AppState, Connection, Profile};
+use crate::state::{AppState, Connection, Profile, Preferences};
 use crate::verifiable_credential_record::VerifiableCredentialRecord;
 use did_key::{generate, Ed25519KeyPair};
 use lazy_static::lazy_static;
@@ -41,6 +41,7 @@ pub async fn load_dev_profile(state: &AppState, _action: Action) -> anyhow::Resu
         picture: Some("&#129408".to_string()),
         theme: Some("system".to_string()),
         primary_did: subject.identifier().unwrap(),
+        preferences: Preferences::default()
     };
     state.active_profile.lock().unwrap().replace(profile);
 
