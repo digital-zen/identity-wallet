@@ -8,7 +8,7 @@ use super::{IdentityManager, Locale};
 use crate::crypto::stronghold::StrongholdManager;
 use crate::state::actions::Action;
 use crate::state::user_prompt::CurrentUserPrompt;
-use crate::state::{AppState, Profile};
+use crate::state::{AppState, Profile, Preferences};
 use crate::verifiable_credential_record::VerifiableCredentialRecord;
 use did_key::{from_existing_key, Ed25519KeyPair};
 use log::info;
@@ -20,6 +20,8 @@ use serde_json::json;
 use std::sync::Arc;
 use uuid::Uuid;
 
+// Should differentiate between "main" locale and "profile" locale. 
+// There should be two because before creating a profile the user should be able to choose a language already.
 /// Sets the locale to the given value. If the locale is not supported yet, the current locale will stay unchanged.
 pub fn set_locale(state: &AppState, action: Action) -> anyhow::Result<()> {
     let payload = action.payload.ok_or(anyhow::anyhow!("unable to read payload"))?;
@@ -47,6 +49,7 @@ pub async fn create_identity(state: &AppState, action: Action) -> anyhow::Result
     let theme = payload["theme"]
         .as_str()
         .ok_or(anyhow::anyhow!("unable to read theme from json payload"))?;
+    let preferences: Preferences = serde_json::from_value(payload["preferences"].clone()).unwrap();
 
     let public_key = stronghold_manager.get_public_key()?;
 
@@ -61,6 +64,7 @@ pub async fn create_identity(state: &AppState, action: Action) -> anyhow::Result
         picture: Some(picture.to_string()),
         theme: Some(theme.to_string()),
         primary_did: subject.identifier()?,
+        preferences: preferences,
     };
 
     state.active_profile.lock().unwrap().replace(profile);
@@ -282,6 +286,7 @@ mod tests {
                 picture: Some("&#129408".to_string()),
                 theme: Some("system".to_string()),
                 primary_did: "did:mock:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK".to_string(),
+                preferences: Preferences::default()
             })
             .into(),
             ..AppState::default()
