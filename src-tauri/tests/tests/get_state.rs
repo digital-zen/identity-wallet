@@ -1,6 +1,6 @@
 use crate::common::assert_state_update::{assert_state_update, setup_state_file, setup_stronghold};
 use crate::common::{json_example, test_managers};
-use identity_wallet::state::Profile;
+use identity_wallet::state::{Profile, Settings};
 use identity_wallet::state::{actions::Action, AppState};
 use std::sync::Mutex;
 
@@ -53,6 +53,7 @@ async fn test_get_state_unlock_storage() {
                 picture: Some("&#129408".to_string()),
                 theme: Some("system".to_string()),
                 primary_did: "did:example:placeholder".to_string(),
+                settings: Settings::default()
             })),
             ..AppState::default()
         },

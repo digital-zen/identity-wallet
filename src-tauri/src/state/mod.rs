@@ -43,9 +43,9 @@ pub struct AppState {
     #[serde(skip)]
     #[derivative(Debug = "ignore")]
     pub active_connection_request: Mutex<Option<ConnectionRequest>>,
-
-// Should differentiate between "main" locale and "profile" locale. 
-// There should be two because before creating a profile the user should be able to choose a language already.
+    // We'll try to move this initial locale, 
+    // which is only necessary when setting up the app before having a profile,
+    // to the user_prompt 'payload' until the profile has been set up to avoid ambiguity.
     pub locale: Mutex<Locale>,
     pub credentials: Mutex<Vec<DisplayCredential>>,
     pub current_user_prompt: Mutex<Option<CurrentUserPrompt>>,
@@ -68,10 +68,10 @@ pub enum Locale {
 
 #[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq, Default)]
 #[ts(export)]
-pub struct Preferences {
-    pub locale: Locale,
+pub struct Settings {
+    pub profile_locale: Locale,
     pub credential_sort: SortMethod,
-    pub connection_sort: SortMethod
+    pub connection_sort: SortMethod,
 }
 
 /// A profile of the current user.
@@ -83,7 +83,7 @@ pub struct Profile {
     pub picture: Option<String>,
     pub theme: Option<String>,
     pub primary_did: String,
-    pub preferences: Preferences
+    pub settings: Settings,
 }
 
 #[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq, Default)]
@@ -142,8 +142,9 @@ mod tests {
                 picture: None,
                 theme: None,
                 primary_did: "did:example:123".to_string(),
-                preferences: Preferences::default()
+                settings: Settings::default(),
             })),
+            locale: Mutex::new(Locale::En),
             credentials: Mutex::new(vec![]),
             current_user_prompt: Mutex::new(Some(CurrentUserPrompt::Redirect {
                 target: "me".to_string(),

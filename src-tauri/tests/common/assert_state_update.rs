@@ -75,7 +75,10 @@ pub async fn assert_state_update(
                 *current_user_prompt.lock().unwrap(),
                 *expected_current_user_prompt.lock().unwrap()
             );
-            assert_eq!(*user_data_query.lock().unwrap(), *expected_user_data_query.lock().unwrap());
+            assert_eq!(
+                *user_data_query.lock().unwrap(),
+                *expected_user_data_query.lock().unwrap()
+            );
         }
     }
 }

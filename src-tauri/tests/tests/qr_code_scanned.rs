@@ -3,6 +3,7 @@ use crate::common::{
     assert_state_update::{assert_state_update, setup_state_file, setup_stronghold},
     test_managers,
 };
+use identity_wallet::state::Settings;
 use identity_wallet::{
     state::{actions::Action, AppState, Profile},
     verifiable_credential_record::VerifiableCredentialRecord,
@@ -33,6 +34,7 @@ async fn test_qr_code_scanned_read_credential_offer() {
             .subject
             .identifier()
             .unwrap(),
+        settings: Settings::default()
     });
 
     // Deserializing the Transferstates and Actions from the accompanying json files.
@@ -73,6 +75,7 @@ async fn test_qr_code_scanned_handle_siopv2_authorization_request() {
             .subject
             .identifier()
             .unwrap(),
+        settings: Settings::default()
     });
 
     // Deserializing the Transferstates and Actions from the accompanying json files.
@@ -122,6 +125,7 @@ async fn test_qr_code_scanned_handle_oid4vp_authorization_request() {
             .subject
             .identifier()
             .unwrap(),
+        settings: Settings::default()
     });
 
     // Deserializing the Transferstates and Actions from the accompanying json files.
