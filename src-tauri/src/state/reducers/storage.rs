@@ -1,6 +1,8 @@
 use crate::{
     crypto::stronghold::StrongholdManager,
-    state::{actions::Action, user_prompt::CurrentUserPrompt, AppState, IdentityManager},
+    state::{
+        actions::Action, profile_settings::sort_credentials, user_prompt::CurrentUserPrompt, AppState, IdentityManager,
+    },
 };
 use did_key::{from_existing_key, Ed25519KeyPair};
 use log::info;
@@ -33,6 +35,9 @@ pub async fn unlock_storage(state: &AppState, action: Action) -> anyhow::Result<
         .into_iter()
         .map(|verifiable_credential_record| verifiable_credential_record.display_credential)
         .collect();
+
+    // Sort according to active_profile.settings
+    sort_credentials(state).await;
 
     state_guard.stronghold_manager.replace(stronghold_manager);
 

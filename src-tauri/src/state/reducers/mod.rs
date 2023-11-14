@@ -7,6 +7,7 @@ pub mod user_data_query;
 use super::{IdentityManager, Locale};
 use crate::crypto::stronghold::StrongholdManager;
 use crate::state::actions::Action;
+use crate::state::profile_settings::sort_credentials;
 use crate::state::user_prompt::CurrentUserPrompt;
 use crate::state::{AppState, Profile, Settings};
 use crate::verifiable_credential_record::VerifiableCredentialRecord;
@@ -20,8 +21,6 @@ use serde_json::json;
 use std::sync::Arc;
 use uuid::Uuid;
 
-// Should differentiate between "main" locale and "profile" locale.
-// There should be two because before creating a profile the user should be able to choose a language already.
 /// Sets the locale to the given value. If the locale is not supported yet, the current locale will stay unchanged.
 pub fn set_locale(state: &AppState, action: Action) -> anyhow::Result<()> {
     let payload = action.payload.ok_or(anyhow::anyhow!("unable to read payload"))?;
@@ -173,6 +172,9 @@ pub async fn update_credential_metadata(state: &AppState, action: Action) -> any
         .into_iter()
         .map(|record| record.display_credential)
         .collect();
+
+    // Sort according to active_profile.settings
+    sort_credentials(state).await;
 
     Ok(())
 }
