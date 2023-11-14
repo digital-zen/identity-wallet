@@ -34,7 +34,7 @@ async fn test_qr_code_scanned_read_credential_offer() {
             .subject
             .identifier()
             .unwrap(),
-        settings: Settings::default()
+        settings: Settings::default(),
     });
 
     // Deserializing the Transferstates and Actions from the accompanying json files.
@@ -75,7 +75,7 @@ async fn test_qr_code_scanned_handle_siopv2_authorization_request() {
             .subject
             .identifier()
             .unwrap(),
-        settings: Settings::default()
+        settings: Settings::default(),
     });
 
     // Deserializing the Transferstates and Actions from the accompanying json files.
@@ -125,7 +125,7 @@ async fn test_qr_code_scanned_handle_oid4vp_authorization_request() {
             .subject
             .identifier()
             .unwrap(),
-        settings: Settings::default()
+        settings: Settings::default(),
     });
 
     // Deserializing the Transferstates and Actions from the accompanying json files.

@@ -1,5 +1,6 @@
 pub mod actions;
 pub mod persistence;
+pub mod profile_settings;
 pub mod reducers;
 pub mod user_prompt;
 
@@ -43,7 +44,7 @@ pub struct AppState {
     #[serde(skip)]
     #[derivative(Debug = "ignore")]
     pub active_connection_request: Mutex<Option<ConnectionRequest>>,
-    // We'll try to move this initial locale, 
+    // We'll try to move this initial locale,
     // which is only necessary when setting up the app before having a profile,
     // to the user_prompt 'payload' until the profile has been set up to avoid ambiguity.
     pub locale: Mutex<Locale>,

@@ -1,5 +1,5 @@
 use crate::{
-    state::{actions::Action, user_prompt::CurrentUserPrompt, AppState},
+    state::{actions::Action, profile_settings::sort_credentials, user_prompt::CurrentUserPrompt, AppState},
     verifiable_credential_record::VerifiableCredentialRecord,
 };
 use log::info;
@@ -267,6 +267,9 @@ pub async fn send_credential_request(state: &AppState, action: Action) -> anyhow
         .into_iter()
         .map(|verifiable_credential_record| verifiable_credential_record.display_credential)
         .collect();
+
+    // Resort according to active_profile.settings
+    sort_credentials(state).await;
 
     state
         .current_user_prompt
