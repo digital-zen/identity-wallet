@@ -12,7 +12,6 @@ async fn test_credential_search_query() {
     let action = json_example::<Action>("tests/fixtures/actions/credential_search.json");
     let expected_state = json_example::<AppState>("tests/fixtures/states/two_credentials_search_query.json");
     assert_state_update(state, vec![action], vec![Some(expected_state)]).await;
-
 }
 
 #[tokio::test]
