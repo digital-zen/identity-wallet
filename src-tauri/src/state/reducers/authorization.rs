@@ -1,6 +1,8 @@
 use crate::{
     get_unverified_jwt_claims,
-    state::{actions::Action, user_prompt::CurrentUserPrompt, AppState, Connection},
+    state::{
+        actions::Action, profile_settings::sort_connections, user_prompt::CurrentUserPrompt, AppState, Connection,
+    },
 };
 use identity_credential::{credential::Jwt, presentation::Presentation};
 use log::info;
@@ -166,7 +168,7 @@ pub async fn handle_siopv2_authorization_request(state: &AppState, _action: Acti
 
     let (client_name, logo_uri, connection_url) = get_siopv2_client_name_and_logo_uri(&siopv2_authorization_request)?;
 
-    ///// sends data after connecting
+    // Updates appstate.connections
     let result = state
         .connections
         .lock()
@@ -177,7 +179,7 @@ pub async fn handle_siopv2_authorization_request(state: &AppState, _action: Acti
             connection.last_interacted = connection_time.clone();
         });
 
-    ///// new connection pushed here
+    // New connection pushed to appstate.connections
     if result.is_none() {
         state.connections.lock().unwrap().push(Connection {
             client_name,
@@ -188,6 +190,9 @@ pub async fn handle_siopv2_authorization_request(state: &AppState, _action: Acti
             last_interacted: connection_time,
         })
     };
+
+    // Resort connections after update
+    sort_connections(state).await;
 
     state
         .current_user_prompt
@@ -319,7 +324,7 @@ pub async fn handle_oid4vp_authorization_request(state: &AppState, action: Actio
 
     let (client_name, logo_uri, connection_url) = get_oid4vp_client_name_and_logo_uri(&oid4vp_authorization_request)?;
 
-    ///// sends data after connecting
+    // Updates appstate.connections
     let result = state
         .connections
         .lock()
@@ -330,7 +335,7 @@ pub async fn handle_oid4vp_authorization_request(state: &AppState, action: Actio
             connection.last_interacted = connection_time.clone();
         });
 
-    ///// new connection pushed here
+    // New connection pushed to appstate.connections
     if result.is_none() {
         state.connections.lock().unwrap().push(Connection {
             client_name,
@@ -341,6 +346,9 @@ pub async fn handle_oid4vp_authorization_request(state: &AppState, action: Actio
             last_interacted: connection_time,
         })
     };
+
+    // Resort connections after update
+    sort_connections(state).await;
 
     state
         .current_user_prompt
