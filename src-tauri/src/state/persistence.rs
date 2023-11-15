@@ -4,7 +4,7 @@ use tokio::{
     io::AsyncWriteExt,
 };
 
-use crate::state::AppState;
+use crate::state::{profile_settings::sort_connections, AppState};
 use crate::STATE_FILE;
 
 /// Loads an [AppState] from the app's data directory.
@@ -14,6 +14,10 @@ pub async fn load_state() -> anyhow::Result<AppState> {
     let bytes = read(state_file).await?;
     let content = String::from_utf8(bytes)?;
     let app_state: AppState = serde_json::from_str(&content)?;
+
+    // Sorts connections according to profile preference.
+    sort_connections(&app_state).await;
+
     debug!("state loaded from disk");
     Ok(app_state)
 }
@@ -22,7 +26,13 @@ pub async fn load_state() -> anyhow::Result<AppState> {
 pub async fn save_state(app_state: &AppState) -> anyhow::Result<()> {
     let state_file = STATE_FILE.lock().unwrap().clone();
     let mut file = File::create(state_file).await?;
-    file.write_all(serde_json::to_string(app_state)?.as_bytes()).await?;
+    
+    // Turn app_state into json_value and remove sensitive information (credentials).
+    let mut data = serde_json::to_value(app_state).unwrap();
+    let credentials = data.get_mut("credentials").unwrap();
+    *credentials = serde_json::Value::Null;
+
+    file.write_all(data.to_string().as_bytes()).await?;
     debug!("state saved to disk");
     Ok(())
 }
