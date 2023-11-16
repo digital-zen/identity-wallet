@@ -3,6 +3,7 @@ pub mod credential_offer;
 pub mod load_dev_profile;
 pub mod storage;
 pub mod user_data_query;
+pub mod profile_settings;
 
 use super::{IdentityManager, Locale};
 use crate::crypto::stronghold::StrongholdManager;

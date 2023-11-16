@@ -1,16 +1,17 @@
 use super::SortMethod;
 use crate::AppState;
 
+// A set_profile_locale function should be located here as well
+
 pub async fn sort_credentials(state: &AppState) {
-    let creds_sort_setting = state
+    let creds_sort_setting = &state
         .active_profile
         .lock()
         .unwrap()
         .clone()
         .unwrap()
         .settings
-        .credential_sort
-        .clone();
+        .credential_sort;
     match creds_sort_setting {
         SortMethod::NameAZ => {
             state
@@ -38,15 +39,14 @@ pub async fn sort_credentials(state: &AppState) {
 }
 
 pub async fn sort_connections(state: &AppState) {
-    let connects_sort_setting = state
+    let connects_sort_setting = &state
         .active_profile
         .lock()
         .unwrap()
         .clone()
         .unwrap()
         .settings
-        .connection_sort
-        .clone();
+        .connection_sort;
     match connects_sort_setting {
         SortMethod::NameAZ => {
             state

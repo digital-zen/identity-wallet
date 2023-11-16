@@ -50,6 +50,8 @@ pub enum ActionType {
     CancelUserJourney,
     #[serde(rename = "[User Data] Query")]
     UserDataQuery,
+    #[serde(rename = "[Settings] Update")]
+    SettingUpdate,
     #[ts(skip)]
     #[serde(other)]
     Unknown,
