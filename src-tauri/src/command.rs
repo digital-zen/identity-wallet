@@ -196,6 +196,7 @@ pub(crate) async fn handle_action_inner<R: tauri::Runtime>(
                 save_state(app_state).await.ok();
             }
         }
+        ActionType::ProfileSettingUpdate => profile_setting_update(appstate, Action { r#type, payload }),
         ActionType::Unknown => {
             warn!(
                 "received unknown action type `{:?}` with payload `{:?}`",
