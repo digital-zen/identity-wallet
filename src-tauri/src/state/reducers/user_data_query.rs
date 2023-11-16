@@ -158,6 +158,8 @@ fn connection_query(state: &AppState, query: UserDataQuery) -> anyhow::Result<()
             user_data_query = sorted_connects;
         }
     }
+
+    *state.user_data_query.lock().unwrap() = user_data_query;
     Ok(())
 }
 
