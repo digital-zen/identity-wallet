@@ -12,7 +12,7 @@ use crate::state::reducers::{
     update_profile_settings,
 };
 use crate::state::user_prompt::CurrentUserPrompt;
-use crate::state::AppState;
+use crate::state::app_state::AppState;
 use log::{info, warn};
 use oid4vc_core::authorization_request::AuthorizationRequest;
 use oid4vci::credential_offer::CredentialOfferQuery;
@@ -196,7 +196,7 @@ pub(crate) async fn handle_action_inner<R: tauri::Runtime>(
                 save_state(app_state).await.ok();
             }
         }
-        ActionType::ProfileSettingUpdate => profile_setting_update(appstate, Action { r#type, payload }),
+        //ActionType::ProfileSettingUpdate => profile_setting_update(appstate, Action { r#type, payload }),
         ActionType::Unknown => {
             warn!(
                 "received unknown action type `{:?}` with payload `{:?}`",

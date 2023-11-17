@@ -1,3 +1,6 @@
+pub mod profile;
+pub mod user_data_query;
+
 use crate::{
     crypto::stronghold::StrongholdManager, state::user_prompt::CurrentUserPrompt,
     verifiable_credential_record::DisplayCredential,
@@ -9,8 +12,6 @@ use oid4vci::Wallet;
 use serde::{Deserialize, Serialize};
 use std::sync::{Arc, Mutex};
 use ts_rs::TS;
-
-use self::reducers::authorization::ConnectionRequest;
 
 pub struct IdentityManager {
     pub subject: Arc<dyn Subject>,
@@ -52,36 +53,6 @@ pub struct AppState {
 }
 
 #[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq, Default)]
-#[serde(rename_all = "lowercase")]
-#[ts(export)]
-pub enum Locale {
-    #[default]
-    En,
-    De,
-    Nl,
-}
-
-#[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq, Default)]
-#[ts(export)]
-pub struct Settings {
-    pub profile_locale: Locale,
-    pub credential_sort: SortMethod,
-    pub connection_sort: SortMethod,
-}
-
-/// A profile of the current user.
-#[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq, Default)]
-#[ts(export)]
-#[serde(default)]
-pub struct Profile {
-    pub name: String,
-    pub picture: Option<String>,
-    pub theme: Option<String>,
-    pub primary_did: String,
-    pub settings: Settings,
-}
-
-#[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq, Default)]
 #[ts(export)]
 #[serde(default)]
 pub struct Connection {
@@ -91,36 +62,6 @@ pub struct Connection {
     pub verified: bool,
     pub first_interacted: String,
     pub last_interacted: String,
-}
-
-#[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq)]
-#[ts(export)]
-pub enum QueryTarget {
-    Credentials,
-    Connections,
-}
-
-#[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq, Default)]
-#[ts(export)]
-pub enum SortMethod {
-    #[default]
-    NameAZ,
-    IssuanceNewOld,
-    AddedNewOld,
-    FirstInteractedNewOld,
-    LastInteractedNewOld,
-}
-
-#[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq)]
-#[ts(export)]
-pub struct UserDataQuery {
-    pub target: QueryTarget,
-    #[serde(default)]
-    pub search_term: Option<String>,
-    #[serde(default)]
-    pub sort_method: Option<SortMethod>,
-    #[serde(default)]
-    pub sort_reverse: Option<bool>,
 }
 
 #[cfg(test)]
