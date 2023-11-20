@@ -1,3 +1,7 @@
+use serde::{Deserialize, Serialize};
+use ts_rs::TS;
+use super::user_data_query::SortMethod;
+
 /// A profile of the current user.
 #[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq, Default)]
 #[ts(export)]

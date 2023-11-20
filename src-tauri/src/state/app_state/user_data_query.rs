@@ -1,16 +1,5 @@
-use crate::{
-    crypto::stronghold::StrongholdManager, state::user_prompt::CurrentUserPrompt,
-    verifiable_credential_record::DisplayCredential,
-};
-use derivative::Derivative;
-use oid4vc_core::Subject;
-use oid4vc_manager::ProviderManager;
-use oid4vci::Wallet;
 use serde::{Deserialize, Serialize};
-use std::sync::{Arc, Mutex};
 use ts_rs::TS;
-
-use self::reducers::authorization::ConnectionRequest;
 
 #[derive(Clone, Serialize, Debug, Deserialize, TS, PartialEq)]
 #[ts(export)]

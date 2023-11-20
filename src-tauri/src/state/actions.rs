@@ -51,7 +51,7 @@ pub enum ActionType {
     #[serde(rename = "[User Data] Query")]
     UserDataQuery,
     #[serde(rename = "[Settings] Update")]
-    SettingUpdate,
+    ProfileSettingUpdate,
     #[ts(skip)]
     #[serde(other)]
     Unknown,

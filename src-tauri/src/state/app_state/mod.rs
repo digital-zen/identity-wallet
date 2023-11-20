@@ -1,9 +1,10 @@
 pub mod profile;
 pub mod user_data_query;
 
+use self::profile::{Locale, Profile};
 use crate::{
     crypto::stronghold::StrongholdManager, state::user_prompt::CurrentUserPrompt,
-    verifiable_credential_record::DisplayCredential,
+    verifiable_credential_record::DisplayCredential
 };
 use derivative::Derivative;
 use oid4vc_core::Subject;
@@ -12,6 +13,8 @@ use oid4vci::Wallet;
 use serde::{Deserialize, Serialize};
 use std::sync::{Arc, Mutex};
 use ts_rs::TS;
+
+use super::reducers::authorization::ConnectionRequest;
 
 pub struct IdentityManager {
     pub subject: Arc<dyn Subject>,
@@ -66,6 +69,8 @@ pub struct Connection {
 
 #[cfg(test)]
 mod tests {
+    use crate::state::app_state::profile::Settings;
+
     use super::*;
     use indoc::indoc;
 

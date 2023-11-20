@@ -4,7 +4,7 @@ use crate::AppState;
 
 // A set_profile_locale function should be located here as well
 
-async fn sort_credentials(state: &AppState) {
+pub async fn sort_credentials(state: &AppState) {
     let creds_sort_setting = &state
         .active_profile
         .lock()
@@ -39,7 +39,7 @@ async fn sort_credentials(state: &AppState) {
     };
 }
 
-async fn sort_connections(state: &AppState) {
+pub async fn sort_connections(state: &AppState) {
     let connects_sort_setting = &state
         .active_profile
         .lock()

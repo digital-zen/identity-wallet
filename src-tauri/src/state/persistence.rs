@@ -4,7 +4,8 @@ use tokio::{
     io::AsyncWriteExt,
 };
 
-use crate::state::{profile_settings::sort_connections, AppState};
+use crate::state::app_state::AppState;
+use crate::state::reducers::profile_settings::sort_connections;
 use crate::STATE_FILE;
 
 /// Loads an [AppState] from the app's data directory.

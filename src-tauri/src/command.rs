@@ -7,9 +7,10 @@ use crate::state::reducers::credential_offer::{read_credential_offer, send_crede
 use crate::state::reducers::load_dev_profile::load_dev_profile;
 use crate::state::reducers::storage::unlock_storage;
 use crate::state::reducers::user_data_query::user_data_query;
+use crate::state::reducers::profile_settings::profile_setting_update;
 use crate::state::reducers::{
     create_identity, initialize_stronghold, reset_state, set_locale, update_credential_metadata,
-    update_profile_settings,
+    update_profile_settings
 };
 use crate::state::user_prompt::CurrentUserPrompt;
 use crate::state::app_state::AppState;
@@ -17,6 +18,7 @@ use log::{info, warn};
 use oid4vc_core::authorization_request::AuthorizationRequest;
 use oid4vci::credential_offer::CredentialOfferQuery;
 use serde_json::json;
+use tauri::Manager;
 
 #[async_recursion::async_recursion]
 pub(crate) async fn handle_action_inner<R: tauri::Runtime>(
@@ -196,7 +198,9 @@ pub(crate) async fn handle_action_inner<R: tauri::Runtime>(
                 save_state(app_state).await.ok();
             }
         }
-        //ActionType::ProfileSettingUpdate => profile_setting_update(appstate, Action { r#type, payload }),
+        ActionType::ProfileSettingUpdate => {
+            profile_setting_update(app_state, Action { r#type, payload });
+        },
         ActionType::Unknown => {
             warn!(
                 "received unknown action type `{:?}` with payload `{:?}`",
