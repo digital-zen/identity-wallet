@@ -1,7 +1,7 @@
 use crate::crypto::stronghold::StrongholdManager;
 use crate::state::actions::Action;
 use crate::state::user_prompt::CurrentUserPrompt;
-use crate::state::{AppState, Connection, Profile, Settings};
+use crate::state::{app_state::{AppState, Connection}, app_state::profile::{Profile, Settings}};
 use crate::verifiable_credential_record::VerifiableCredentialRecord;
 use did_key::{generate, Ed25519KeyPair};
 use lazy_static::lazy_static;

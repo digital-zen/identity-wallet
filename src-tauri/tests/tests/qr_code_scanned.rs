@@ -3,9 +3,8 @@ use crate::common::{
     assert_state_update::{assert_state_update, setup_state_file, setup_stronghold},
     test_managers,
 };
-use identity_wallet::state::Settings;
 use identity_wallet::{
-    state::{actions::Action, AppState, Profile},
+    state::{actions::Action, app_state::AppState, app_state::profile::{Profile, Settings}},
     verifiable_credential_record::VerifiableCredentialRecord,
 };
 use oid4vci::credential_format_profiles::w3c_verifiable_credentials::jwt_vc_json::JwtVcJson;

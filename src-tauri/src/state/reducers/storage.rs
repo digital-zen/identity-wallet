@@ -1,7 +1,7 @@
 use crate::{
     crypto::stronghold::StrongholdManager,
     state::{
-        actions::Action, profile_settings::sort_credentials, user_prompt::CurrentUserPrompt, AppState, IdentityManager,
+        actions::Action, reducers::profile_settings::sort_credentials, user_prompt::CurrentUserPrompt, app_state::{AppState, IdentityManager}
     },
 };
 use did_key::{from_existing_key, Ed25519KeyPair};

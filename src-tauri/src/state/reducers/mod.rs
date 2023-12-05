@@ -5,12 +5,11 @@ pub mod storage;
 pub mod user_data_query;
 pub mod profile_settings;
 
-use super::{IdentityManager, Locale};
 use crate::crypto::stronghold::StrongholdManager;
 use crate::state::actions::Action;
-use crate::state::profile_settings::sort_credentials;
+use crate::state::reducers::profile_settings::sort_credentials;
 use crate::state::user_prompt::CurrentUserPrompt;
-use crate::state::{AppState, Profile, Settings};
+use crate::state::app_state::{{AppState, IdentityManager}, profile::{Profile, Settings, Locale}};
 use crate::verifiable_credential_record::VerifiableCredentialRecord;
 use did_key::{from_existing_key, Ed25519KeyPair};
 use log::info;

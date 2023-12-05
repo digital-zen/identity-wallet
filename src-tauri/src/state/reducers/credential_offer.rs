@@ -1,5 +1,5 @@
 use crate::{
-    state::{actions::Action, profile_settings::sort_credentials, user_prompt::CurrentUserPrompt, AppState},
+    state::{actions::Action, reducers::profile_settings::sort_credentials, user_prompt::CurrentUserPrompt, app_state::AppState},
     verifiable_credential_record::VerifiableCredentialRecord,
 };
 use log::info;

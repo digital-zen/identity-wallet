@@ -1,5 +1,6 @@
 use crate::state::actions::Action;
-use crate::state::{AppState, QueryTarget, SortMethod, UserDataQuery};
+use crate::state::app_state::AppState;
+use crate::state::app_state::user_data_query::{QueryTarget, SortMethod, UserDataQuery};
 use itertools::concat;
 
 fn credential_query(state: &AppState, query: UserDataQuery) -> anyhow::Result<()> {
@@ -171,3 +172,5 @@ pub async fn user_data_query(state: &AppState, action: Action) -> anyhow::Result
         QueryTarget::Connections => connection_query(state, query),
     }
 }
+
+// Filter feature to be added here in the future

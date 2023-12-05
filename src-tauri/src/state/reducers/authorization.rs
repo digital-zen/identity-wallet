@@ -1,7 +1,7 @@
 use crate::{
     get_unverified_jwt_claims,
     state::{
-        actions::Action, profile_settings::sort_connections, user_prompt::CurrentUserPrompt, AppState, Connection,
+        actions::Action, reducers::profile_settings::sort_connections, user_prompt::CurrentUserPrompt, app_state::{AppState, Connection},
     },
 };
 use identity_credential::{credential::Jwt, presentation::Presentation};

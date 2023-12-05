@@ -1,5 +1,6 @@
-use crate::state::{actions::Action, profile_settings};
-use super::SortMethod;
+use anyhow::Ok;
+
+use crate::state::{actions::Action, app_state::user_data_query::SortMethod};
 use crate::AppState;
 
 // A set_profile_locale function should be located here as well
@@ -81,14 +82,17 @@ async fn update_setting(state: &AppState, payload: serde_json::Value) {
 pub async fn profile_setting_update(state: &AppState, action: Action) -> anyhow::Result<()> {
     //let setting_update = serde_json::from_value(action.payload.unwrap()).unwrap();
 
-    match action.payload["target"] {
+    match action.payload.clone().unwrap()["target"].to_string().as_str() {
         "credentials_sort" => {
-            update_setting(state, action.payload);
+            update_setting(state, action.payload.unwrap());
             sort_credentials(state);
+            Ok(())
         },
         "connections_sort" => {
-            update_setting(state, action.payload);
-            sort_connections(state)
+            update_setting(state, action.payload.unwrap());
+            sort_connections(state);
+            Ok(())
         },
+        _ => Ok(()),
     }
 }
