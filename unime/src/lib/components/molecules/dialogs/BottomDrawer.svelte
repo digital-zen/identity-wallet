@@ -1,4 +1,4 @@
-<script lang="ts">
+run<script lang="ts">
   import { fade, fly } from 'svelte/transition';
 
   import { createDialog, melt } from '@melt-ui/svelte';

@@ -29,6 +29,7 @@
   import RocketLaunch from '~icons/ph/rocket-launch-fill';
 
   import { calculateInitials } from './utils';
+  import SortModal from '$src/lib/components/molecules/SortModal.svelte';
 
   let initials: string | undefined;
 
@@ -86,6 +87,7 @@
         <div slot="0" class="h-full pt-5">
           <Favorites />
           <CredentialList />
+          <SortModal/>
         </div>
 
         <!-- Data -->
