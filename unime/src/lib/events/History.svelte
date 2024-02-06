@@ -45,6 +45,8 @@
   };
 
   let eventsList = [data_1, data_0, data_2];
+
+  console.log("eventList", eventsList);
 </script>
 
 <div class="relative flex h-full flex-col">
