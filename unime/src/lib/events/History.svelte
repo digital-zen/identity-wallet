@@ -6,8 +6,8 @@
   import exampleEvents from '$src/lib/events/mock-data.json';
   import { state } from '$src/stores';
 
-  // const events: Event[] = exampleEvents.map((e) => ({ ...e, type: e.type as EventType }));
-  const events: Event[] = [];
+  const events: Event[] = exampleEvents.map((e) => ({ ...e, type: e.type as EventType }));
+  //const events: Event[] = [];
 
   const data_0 = {
     ...events[0],

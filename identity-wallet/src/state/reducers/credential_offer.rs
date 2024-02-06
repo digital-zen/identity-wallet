@@ -23,6 +23,8 @@ use uuid::Uuid;
 pub async fn read_credential_offer(state: AppState, action: Action) -> Result<AppState, AppError> {
     info!("read_credential_offer");
 
+    // TODO create events history
+
     if let Some(credential_offer_uri) =
         listen::<QrCodeScanned>(action).and_then(|payload| payload.form_urlencoded.parse::<CredentialOfferQuery>().ok())
     {
