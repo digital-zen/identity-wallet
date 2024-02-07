@@ -5,56 +5,57 @@
   import LL from '$src/i18n/i18n-svelte';
   import exampleEvents from '$src/lib/events/mock-data.json';
   import { state } from '$src/stores';
+
   import { dispatch } from '../dispatcher';
 
-  const events: Event[] = exampleEvents.map((e) => ({ ...e, type: e.type as EventType }));
+  //const events: Event[] = exampleEvents.map((e) => ({ ...e, type: e.type as EventType }));
   //const events: Event[] = [];
 
   dispatch({
     type: '[History] Fetch',
   });
 
-  console.log("juuausdhasdm");
-  console.log("history", $state.history);
+  console.log('history', $state.history);
 
-  const data_0 = {
-    ...events[0],
-    connection: {
-      domain: 'kw1c.nl',
-      id: 'kw1c',
-      url: 'https://kw1c.nl',
-      lastConnected: 'n/a',
-    },
-    title: 'Initial connection',
-    timestamp: '2023-08-03T12:23:41.218Z',
-    credentials: [],
-  };
+  const events = $state.history;
+  //const data_0 = {
+  //  ...events[0],
+  //  connection: {
+  //    domain: 'kw1c.nl',
+  //    id: 'kw1c',
+  //    url: 'https://kw1c.nl',
+  //    lastConnected: 'n/a',
+  //  },
+  //  title: 'Initial connection',
+  //  timestamp: '2023-08-03T12:23:41.218Z',
+  //  credentials: [],
+  //};
 
-  const data_1 = {
-    ...events[0],
-    connection: {
-      domain: 'impierce.com',
-      id: 'impierce',
-      url: 'https://impierce.com',
-      lastConnected: 'n/a',
-    },
-    title: 'Data shared',
-    timestamp: '2023-08-03T12:23:42.749Z',
-    credentials: [$state.credentials[0], $state.credentials[1]],
-  };
+  //const data_1 = {
+  //  ...events[0],
+  //  connection: {
+  //    domain: 'impierce.com',
+  //    id: 'impierce',
+  //    url: 'https://impierce.com',
+  //    lastConnected: 'n/a',
+  //  },
+  //  title: 'Data shared',
+  //  timestamp: '2023-08-03T12:23:42.749Z',
+  //  credentials: [$state.credentials[0], $state.credentials[1]],
+  //};
 
-  const data_2 = {
-    connection: {
-      id: 'iota',
-    },
-    title: 'Initial connection',
-    timestamp: '2024-01-09T11:53:53.937+00:00',
-    credentials: [$state.credentials[2]],
-  };
+  //const data_2 = {
+  //  connection: {
+  //    id: 'iota',
+  //  },
+  //  title: 'Initial connection',
+  //  timestamp: '2024-01-09T11:53:53.937+00:00',
+  //  credentials: [$state.credentials[2]],
+  //};
 
-  let eventsList = [data_1, data_0, data_2];
+  //let eventsList = [data_1, data_0, data_2];
 
-  console.log("eventList", eventsList);
+  //console.log("eventList", eventsList);
 </script>
 
 <div class="relative flex h-full flex-col">
@@ -64,13 +65,13 @@
     </div>
   {:else}
     <div class="flex grow flex-col space-y-8 pr-4 pt-4">
-      {#each eventsList as event}
+      {#each events as event}
         <div class="flex justify-between">
           <div class="z-10 mr-3 h-6 w-6 overflow-hidden rounded-full bg-white p-0.5 ring-8 ring-silver">
-            <Image id={event.connection.id} imgClass="h-full w-full object-contain" />
+            <Image id={event.image_id} imgClass="h-full w-full object-contain" />
           </div>
           <div class="grow">
-            <HistoryEntry {...event} />
+            <HistoryEntry {event} />
           </div>
         </div>
       {/each}
