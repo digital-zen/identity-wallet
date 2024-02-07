@@ -1,3 +1,4 @@
+use chrono::{DateTime, Utc};
 use derivative::Derivative;
 use oid4vc::oid4vci::credential_format_profiles::{CredentialFormats, WithCredential};
 use serde::{Deserialize, Serialize};
@@ -44,7 +45,8 @@ impl From<CredentialFormats<WithCredential>> for VerifiableCredentialRecord {
                     )
                 };
 
-                let issuance_date = credential_display["issuanceDate"].clone();
+                let issuance_date_val = credential_display["issuanceDate"].clone();
+                let issuance_date = serde_json::from_value(issuance_date_val).unwrap();
 
                 DisplayCredential {
                     id: Uuid::from_slice(&hash.as_bytes()[..16]).unwrap().to_string(),
@@ -53,8 +55,8 @@ impl From<CredentialFormats<WithCredential>> for VerifiableCredentialRecord {
                     data: credential_display,
                     metadata: CredentialMetadata {
                         is_favorite: false,
-                        date_added: chrono::Utc::now().to_rfc3339(),
-                        date_issued: issuance_date.to_string(),
+                        date_added: chrono::Utc::now(),
+                        date_issued: issuance_date,
                         display: CredentialDisplay::default(),
                     },
                 }
@@ -89,9 +91,9 @@ pub struct DisplayCredential {
 pub struct CredentialMetadata {
     pub is_favorite: bool,
     #[derivative(PartialEq = "ignore")]
-    pub date_added: String,
+    pub date_added: DateTime<Utc>,
     #[derivative(PartialEq = "ignore")]
-    pub date_issued: String,
+    pub date_issued: DateTime<Utc>,
     pub display: CredentialDisplay,
 }
 

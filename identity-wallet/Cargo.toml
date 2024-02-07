@@ -20,7 +20,7 @@ iota_stronghold = { version = "=2.0.0" }
 stronghold_engine = "=2.0.0"
 anyhow = "1.0"
 base64 = { version = "0.13.0" }
-chrono = "0.4"
+chrono = { version = "0.4", features = ["serde", "rustc-serialize"]}
 derivative = "2.2"
 downcast-rs = "1.2"
 futures = "0.3"
@@ -36,7 +36,7 @@ sha256 = "1.4"
 strum = { version = "0.25", features = ["derive"] }
 thiserror = "1.0"
 tokio = { version = "1.26.0", features = ["macros"] }
-ts-rs = "7.0"
+ts-rs = { version = "7.0", features = ["chrono-impl"] }
 typetag = "0.2"
 uuid = { version = "1.4", features = ["v4", "fast-rng", "serde"] }
 

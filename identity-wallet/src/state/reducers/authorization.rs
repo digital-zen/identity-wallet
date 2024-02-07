@@ -173,7 +173,7 @@ pub async fn handle_siopv2_authorization_request(state: AppState, _action: Actio
     }
     info!("response successfully sent");
 
-    let connection_time = chrono::Utc::now().to_rfc3339();
+    let connection_time = chrono::Utc::now();
 
     let (client_name, logo_uri, connection_url) = get_siopv2_client_name_and_logo_uri(&siopv2_authorization_request)
         .map_err(|_| MissingAuthorizationRequestParameterError("connection_url"))?;
@@ -311,7 +311,7 @@ pub async fn handle_oid4vp_authorization_request(state: AppState, action: Action
         }
         info!("response successfully sent");
 
-        let connection_time = chrono::Utc::now().to_rfc3339();
+        let connection_time = chrono::Utc::now();
 
         let (client_name, _logo_uri, connection_url) =
             get_oid4vp_client_name_and_logo_uri(&oid4vp_authorization_request)

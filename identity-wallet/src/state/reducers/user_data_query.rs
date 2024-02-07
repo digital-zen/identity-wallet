@@ -152,6 +152,7 @@ pub async fn connection_query(state: AppState, action: Action) -> Result<AppStat
 mod tests {
     use std::{sync::Arc, vec};
 
+    use chrono::DateTime;
     use oid4vc::oid4vci::credential_format_profiles::{
         w3c_verifiable_credentials::jwt_vc_json::JwtVcJson, CredentialFormats, Profile,
     };
@@ -231,8 +232,10 @@ mod tests {
                     format: CredentialFormats::JwtVcJson(Profile { format: JwtVcJson }),
                     data: serde_json::json!({"last_name": "Ferris"}),
                     metadata: CredentialMetadata {
-                        date_issued: "2021-01-01".to_string(),
-                        date_added: "2021-01-01".to_string(),
+                        date_issued:
+                            DateTime::parse_from_rfc3339("2021-01-01T12:00:00Z").unwrap().to_utc(),
+                        date_added:
+                            DateTime::parse_from_rfc3339("2021-01-01T13:00:00Z").unwrap().to_utc(),
                         display: CredentialDisplay {
                             name: Some("John".to_string()),
                             ..Default::default()
@@ -246,8 +249,10 @@ mod tests {
                     format: CredentialFormats::JwtVcJson(Profile { format: JwtVcJson }),
                     data: serde_json::json!({"last_name": "John"}),
                     metadata: CredentialMetadata {
-                        date_issued: "2021-01-02".to_string(),
-                        date_added: "2021-02-01".to_string(),
+                        date_issued:
+                            DateTime::parse_from_rfc3339("2021-01-02T12:00:00Z").unwrap().to_utc(),
+                        date_added:
+                            DateTime::parse_from_rfc3339("2021-02-01T12:00:00Z").unwrap().to_utc(),
                         display: CredentialDisplay {
                             name: Some("Jane".to_string()),
                             ..Default::default()
@@ -261,8 +266,10 @@ mod tests {
                     format: CredentialFormats::JwtVcJson(Profile { format: JwtVcJson }),
                     data: serde_json::json!({"last_name": "Ferris"}),
                     metadata: CredentialMetadata {
-                        date_issued: "2021-01-03".to_string(),
-                        date_added: "2021-03-01".to_string(),
+                        date_issued:
+                            DateTime::parse_from_rfc3339("2021-01-01T12:00:00Z").unwrap().to_utc(),
+                        date_added:
+                            DateTime::parse_from_rfc3339("2021-03-01T12:00:00Z").unwrap().to_utc(),
                         display: CredentialDisplay {
                             name: Some("Jeff".to_string()),
                             ..Default::default()

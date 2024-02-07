@@ -14,6 +14,7 @@ pub mod unlock_storage;
 pub mod update_credential_metadata;
 pub mod update_profile_settings;
 pub mod user_data_query;
+pub mod fetch_history;
 
 pub use cancel_user_flow::*;
 pub use cancel_user_journey::*;
@@ -31,6 +32,7 @@ pub use unlock_storage::*;
 pub use update_credential_metadata::*;
 pub use update_profile_settings::*;
 pub use user_data_query::*;
+pub use fetch_history::*;
 
 use std::sync::Arc;
 use ts_rs::TS;
@@ -101,5 +103,7 @@ mod bindings {
         CancelUserJourney,
         #[serde(rename = "[User Data] Query")]
         UserDataQuery { payload: UserDataQuery },
+        #[serde(rename = "[History] Fetch")]
+        FetchHistory,
     }
 }

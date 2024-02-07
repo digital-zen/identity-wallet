@@ -4,10 +4,12 @@ pub mod reducers;
 pub mod user_prompt;
 
 use self::reducers::authorization::ConnectionRequest;
+use reducers::history::HistoryEvent;
 use crate::{
     crypto::stronghold::StrongholdManager, state::user_prompt::CurrentUserPrompt,
     verifiable_credential_record::DisplayCredential,
 };
+use chrono::{DateTime, Utc};
 use derivative::Derivative;
 use oid4vc::oid4vc_core::Subject;
 use oid4vc::oid4vc_manager::ProviderManager;
@@ -53,6 +55,7 @@ pub struct AppState {
     pub user_journey: Option<serde_json::Value>,
     pub connections: Vec<Connection>,
     pub user_data_query: Vec<String>,
+    pub history: Vec<HistoryEvent>,
 }
 
 impl Clone for AppState {
@@ -69,6 +72,7 @@ impl Clone for AppState {
             user_journey: self.user_journey.clone(),
             connections: self.connections.clone(),
             user_data_query: self.user_data_query.clone(),
+            history: self.history.clone(),
             dev_mode_enabled: self.dev_mode_enabled,
         }
     }
@@ -106,8 +110,9 @@ pub struct Connection {
     pub client_name: String,
     pub url: String,
     pub verified: bool,
-    pub first_interacted: String,
-    pub last_interacted: String,
+
+    pub first_interacted: DateTime<Utc>,
+    pub last_interacted: DateTime<Utc>,
 }
 
 #[cfg(test)]
@@ -159,7 +164,8 @@ mod tests {
                   "debug_messages": [],
                   "user_journey": null,
                   "connections": [],
-                  "user_data_query": []
+                  "user_data_query": [],
+                  "history": []
                 }"#}
         );
     }

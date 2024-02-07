@@ -5,9 +5,16 @@
   import LL from '$src/i18n/i18n-svelte';
   import exampleEvents from '$src/lib/events/mock-data.json';
   import { state } from '$src/stores';
+  import { dispatch } from '../dispatcher';
 
   const events: Event[] = exampleEvents.map((e) => ({ ...e, type: e.type as EventType }));
   //const events: Event[] = [];
+
+  //dispatch({
+  //  type: '[History] Fetch',
+  //});
+
+  console.log("state", $state.history);
 
   const data_0 = {
     ...events[0],
