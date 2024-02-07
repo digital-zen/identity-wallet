@@ -10,11 +10,12 @@
   const events: Event[] = exampleEvents.map((e) => ({ ...e, type: e.type as EventType }));
   //const events: Event[] = [];
 
-  //dispatch({
-  //  type: '[History] Fetch',
-  //});
+  dispatch({
+    type: '[History] Fetch',
+  });
 
-  console.log("state", $state.history);
+  console.log("juuausdhasdm");
+  console.log("history", $state.history);
 
   const data_0 = {
     ...events[0],
