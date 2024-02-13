@@ -90,9 +90,9 @@
       ...$state,
       current_user_prompt: {
         type: 'accept-connection',
-        client_name: 'Some other client',
-        logo_uri: 'https://demo.ngdil.com/imgs/ngdil.svg',
-        redirect_uri: 'https://demo.ngdil.com/auth/callback',
+        client_name: 'Example',
+        logo_uri: 'https://avatars.githubusercontent.com/u/122438622?s=200&v=4',
+        redirect_uri: 'https://demo.example.com/auth/callback',
         previously_connected: false,
         // logo_uri: 'https://picsum.photos/200'
       },
@@ -255,11 +255,11 @@
         class="bg-silver dark:bg-navy relative flex h-full flex-col items-center justify-center p-8"
       >
         {#if permissions === 'denied'}
-          <div class="flex flex-col items-center space-y-4">
-            <div class="rounded-lg bg-rose-100 px-8 py-4 text-rose-500">
-              {$LL.SCAN.PERMISSION_1()}<br />{$LL.SCAN.PERMISSION_2()}
+          <div class="flex w-3/4 flex-col items-center space-y-4 text-center">
+            <div class="rounded-lg bg-rose-100 px-8 py-4 text-[13px]/[24px] font-medium text-rose-500">
+              {$LL.SCAN.NO_PERMISSION()}
             </div>
-            <Button label="Open settings" on:click={openAppSettings} />
+            <Button label={$LL.SCAN.OPEN_SETTINGS()} on:click={openAppSettings} />
           </div>
           <!-- {:else}
       <div class="rounded-lg bg-emerald-100 px-8 py-4 font-medium text-emerald-500">
@@ -271,23 +271,46 @@
         <!-- <p class="my-4 h-[1px] w-full bg-slate-200" /> -->
 
         {#if $state?.dev_mode_enabled}
-          <div class="flex flex-col space-y-2">
-            <Button variant="secondary" on:click={mockSiopRequest} label="Connection request (SIOPv2)" />
-            <Button variant="secondary" on:click={mockShareRequest} label="Share request (VP)" />
-            <Button variant="secondary" on:click={() => mockScanCredentialOffer(1)} label="Credential Offer (single)" />
-            <Button variant="secondary" on:click={() => mockScanCredentialOffer(2)} label="Credential Offer (multi)" />
-            <Button
-              variant="secondary"
-              on:click={() =>
-                dispatch({
-                  type: '[QR Code] Scanned',
-                  payload: {
-                    form_urlencoded:
-                      'openid-credential-offer://?credential_offer_uri=https://api.ngdil-demo.tanglelabs.io/api/offers/creds/u08LmjU8lAcTwx7pLMpy0',
-                  },
-                })}
-              label="Dominique (student)"
-            />
+          <div class="flex flex-col space-y-4">
+            <!-- Mock -->
+            <div class="flex flex-col space-y-2">
+              <p class="text-[14px]/[22px] font-medium text-slate-500 dark:text-slate-300">Mock</p>
+              <Button variant="secondary" on:click={mockSiopRequest} label="New connection" />
+              <Button variant="secondary" on:click={mockShareRequest} label="Share credentials" />
+            </div>
+            <!-- UniCore (local) -->
+            <div class="flex flex-col space-y-2">
+              <p class="text-[14px]/[22px] font-medium text-slate-500 dark:text-slate-300">UniCore (local)</p>
+              <Button
+                variant="secondary"
+                on:click={() => mockScanCredentialOffer(1)}
+                label="Credential Offer (single)"
+              />
+              <Button
+                variant="secondary"
+                on:click={() => mockScanCredentialOffer(2)}
+                label="Credential Offer (multi)"
+              />
+            </div>
+            <!-- NGDIL (remote) -->
+            <div class="flex flex-col space-y-2">
+              <p class="text-[14px]/[22px] font-medium text-slate-500 dark:text-slate-300">NGDIL (remote)</p>
+
+              <Button
+                variant="secondary"
+                on:click={() =>
+                  dispatch({
+                    type: '[QR Code] Scanned',
+                    payload: {
+                      form_urlencoded:
+                        'openid-credential-offer://?credential_offer_uri=https://api.ngdil-demo.tanglelabs.io/api/offers/creds/u08LmjU8lAcTwx7pLMpy0',
+                    },
+                  })}
+                label="Credential Offer"
+              />
+            </div>
+            <hr />
+
             <Button variant="primary" on:click={startScan} label="Start new scan" />
           </div>
         {/if}

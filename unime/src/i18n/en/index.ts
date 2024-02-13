@@ -193,7 +193,6 @@ const en = {
     },
     CREDENTIAL: {
       NAVBAR_TITLE: 'Credential info',
-      NAME: '',
     },
     BADGE: {
       NAVBAR_TITLE: 'Badge info',
@@ -217,10 +216,10 @@ const en = {
   SCAN: {
     BOTTOM_NAVIGATION_TITLE: 'Scan',
     TITLE_1: 'Scan a',
-    TITLE_2:'QR Code',
+    TITLE_2: 'QR Code',
     SUBTITLE: 'Bring a QR Code into view of this screen to start an interaction.',
-    PERMISSION_1: 'No permissions to',
-    PERMISSION_2: 'access the camera',
+    NO_PERMISSION: 'No permissions to access the camera',
+    OPEN_SETTINGS: 'Open settings',
     CONNECTION_OFFER: {
       NAVBAR_TITLE: 'Credential Offer',
       DESCRIPTION: 'is offering you the following credentials',
@@ -230,12 +229,12 @@ const en = {
       TITLE_1: 'New connection',
       TITLE_2: 'Only accept new connections that you recognize and trust',
       URL: 'URL',
-      PREVIOUSLY: 'Connected previously'
+      PREVIOUSLY: 'Connected previously',
     },
     SHARE_CREDENTIALS: {
       TITLE_1: 'requests the following credentials',
       TITLE_2: 'Requested',
-    }
+    },
   },
   CONNECTION: {
     TABS: {

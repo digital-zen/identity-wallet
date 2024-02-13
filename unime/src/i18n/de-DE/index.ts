@@ -166,6 +166,7 @@ const de = {
       TITLE: 'Support',
       ABOUT: {
         TITLE: 'Über UniMe',
+        NAVBAR_TITLE: 'Über UniMe',
       },
       FEEDBACK: {
         TITLE: 'Feedback senden',
@@ -195,6 +196,38 @@ const de = {
       SUBTITLE: 'Warum fügst du nicht ein paar Daten zu deiner neuen digitalen Identität hinzu?',
     },
     FAVORITES: 'Meine Favoriten',
+    BOTTOM_NAVIGATION_TITLE: 'Me',
+    CREDENTIAL: {
+      NAVBAR_TITLE: 'Details',
+    },
+    BADGE: {
+      NAVBAR_TITLE: 'Details',
+      DESCRIPTION: 'Beschreibung',
+      METADATA: 'Metadaten',
+    },
+  },
+  SCAN: {
+    BOTTOM_NAVIGATION_TITLE: 'Scan',
+    TITLE_1: 'Scanne einen',
+    TITLE_2: 'QR-Code',
+    SUBTITLE: 'Bringe einen QR-Code in das Sichtfeld, um eine Interaktion zu starten.',
+    NO_PERMISSION: 'Keine Berechtigung auf Kamera zuzugreifen',
+    OPEN_SETTINGS: 'Einstellungen öffnen',
+    CONNECTION_OFFER: {
+      NAVBAR_TITLE: 'Angebot',
+      DESCRIPTION: 'bietet dir folgende Credentials an',
+    },
+    CONNECTION_REQUEST: {
+      NAVBAR_TITLE: 'Anfrage',
+      TITLE_1: 'Neue Verbindung',
+      TITLE_2: 'Akzeptiere nur neue Verbindungen, die du erkennst und denen du vertraust',
+      URL: 'URL',
+      PREVIOUSLY: 'Bereits verbunden',
+    },
+    SHARE_CREDENTIALS: {
+      TITLE_1: 'fragt folgende Daten an',
+      TITLE_2: 'Anfrage',
+    },
   },
   ACTIVITY: {
     NAVBAR_TITLE: 'Verbunden',
@@ -202,6 +235,7 @@ const de = {
       CONNECTIONS: 'Verbindungen',
       TIMELINE: 'Verlauf',
     },
+    BOTTOM_NAVIGATION_TITLE: 'Aktivität',
   },
   CONNECTION: {
     TABS: {
@@ -213,6 +247,7 @@ const de = {
       TITLE: 'Verbunden mit',
       FIRST_CONNECTED: 'Erstmalig verbunden',
       LAST_CONNECTED: 'Zuletzt verbunden',
+      EMPTY: 'Noch keine Verbindungen.',
     },
     DATA: {
       EMPTY: 'Noch keine Daten.',
@@ -244,6 +279,9 @@ const de = {
   CLOSE: 'Schließen',
   CONTINUE: 'Weiter',
   SKIP: 'Überspringen',
+  REJECT: 'Ablehnen',
+  ACCEPT: 'Akzeptieren',
+  APPROVE: 'Anfrage genehmigen',
 } satisfies Translation;
 
 export default de;

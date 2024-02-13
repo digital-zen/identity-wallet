@@ -6,7 +6,7 @@
 </script>
 
 <TopNavBar on:back={() => history.back()} title={$LL.SETTINGS.SUPPORT.ABOUT.NAVBAR_TITLE()} />
-<div class="content-height flex flex-col bg-silver dark:bg-navy">
+<div class="content-height bg-silver dark:bg-navy flex flex-col">
   <div class="flex flex-col p-8">
     <!-- Footer -->
     <div
@@ -19,7 +19,7 @@
         <Heart class="pl-1" />
       </div>
       <div>Apache-2.0</div>
-      <div>2023 Impierce Technologies</div>
+      <div>2024 Impierce Technologies</div>
     </div>
   </div>
 </div>
